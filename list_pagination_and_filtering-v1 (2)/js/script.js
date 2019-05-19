@@ -3,7 +3,7 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// global variables
+//Global variables
 const studentsList = document.querySelectorAll(".student-item");
 const numOfPages = Math.ceil(studentsList.length / 10);
 
@@ -24,21 +24,21 @@ const showPage = (studentsList, page) => {
 showPage(studentsList, 1);
 
 const appendPages = list => {
-  // create div element on page and set class
+  // Create div element on page and set class
   const div = document.createElement("div");
-  // assign page class to a variable
+  // Assign page class to a variable
   const page = document.querySelector(".page");
   page.appendChild(div);
   div.className = "pagination";
-  // add ul to div
+  // Add ul to div
   const ul = document.createElement("ul");
   div.appendChild(ul);
-  // for loop to add li, and a tags to every page
+  // For loop to add li, and a tags to every page
   for (let i = 1; i <= numOfPages; i += 1) {
-    // add li tags to the div
+    // Add li tags to the div
     const li = document.createElement("li");
     ul.appendChild(li);
-    // add a tags to the li
+    // Add a tags to the li
     const a = document.createElement("a");
     li.appendChild(a);
     a.setAttribute("href", "#");
