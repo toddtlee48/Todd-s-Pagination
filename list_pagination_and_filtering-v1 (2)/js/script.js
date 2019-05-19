@@ -2,69 +2,60 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-   
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
+// global variables
+const studentsList = document.querySelectorAll(".student-item");
+const numOfPages = Math.ceil(studentsList.length / 10);
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
-var page = document.querySelector(".page");
-var pageHeader = document.querySelector(".page-header");
-var studentList = document.querySelector(".student-list");
-var eachStudent = document.querySelectorAll(".student-item");
-var studentDetails = document.querySelector(".student-details");
-var navlink = document.querySelector('.navlink');
+// Function that loops through and shows the appropriate students per page. 
 
-var pageNow = 1;
-var pageAmount = 0;
-var studentsPerPage = 10;
-var index;
-
-var numberOfStudents = function () {
-  var numberOfStudents = eachStudent.length;
-  return (numberOfStudents);
-}
-
-var numberOfPages = function () {
-  var numberOfPages = parseInt(numberOfStudents() / studentsPerPage);
-  if ( numberOfStudents() % studentsPerPage > 0 ){
-    pageAmount += 1;
+const showPage = (studentsList, page) => {
+  start_index = (page * 10) - 10;
+  end_index = page * 10;
+  for (let i = 0; i < studentsList.length; i += 1) {
+    if (i >= start_index && i < end_index) {
+      studentsList[i].style.display = "block";
+    } else {
+      studentsList[i].style.display = "none";
+    }
   }
-  return numberOfPages;
-}
-/*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
+};
+// Calls and shows the first page of the studentlist
+showPage(studentsList, 1);
 
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
-***/
-
-
-
-
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
-***/
-
-
-
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+const appendPages = list => {
+  // create div element on page and set class
+  const div = document.createElement("div");
+  // assign page class to a variable
+  const page = document.querySelector(".page");
+  page.appendChild(div);
+  div.className = "pagination";
+  // add ul to div
+  const ul = document.createElement("ul");
+  div.appendChild(ul);
+  // for every page, add li and a tags with the page number
+  for (let i = 1; i <= numOfPages; i += 1) {
+    // add li tags to the div
+    const li = document.createElement("li");
+    ul.appendChild(li);
+    // add a tags to the li
+    const a = document.createElement("a");
+    li.appendChild(a);
+    a.setAttribute("href", "#");
+    a.textContent = i;
+    a.addEventListener("click", e => {
+      const aLinks = document.querySelectorAll("a");
+      let page = e.target;
+      page.className = "active";
+      // loop through all a tags and highlights current page
+      for (let i = 0; i < aLinks.length; i += 1) {
+        if (aLinks[i] !== page) {
+          aLinks[i].className = "";
+        }
+      }
+      // Calls the show page function
+      showPage(studentsList, page.textContent);
+    });
+  }
+};
+appendPages(studentsList);
