@@ -33,7 +33,7 @@ const appendPages = list => {
   // add ul to div
   const ul = document.createElement("ul");
   div.appendChild(ul);
-  // for every page, add li and a tags with the page number
+  // for loop to add li, and a tags to every page
   for (let i = 1; i <= numOfPages; i += 1) {
     // add li tags to the div
     const li = document.createElement("li");
@@ -43,6 +43,7 @@ const appendPages = list => {
     li.appendChild(a);
     a.setAttribute("href", "#");
     a.textContent = i;
+    //click handler for a tags 
     a.addEventListener("click", e => {
       const aLinks = document.querySelectorAll("a");
       let page = e.target;
